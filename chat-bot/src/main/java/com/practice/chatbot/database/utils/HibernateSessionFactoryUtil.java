@@ -1,5 +1,8 @@
-package com.practice.chatbot.database;
+package com.practice.chatbot.database.utils;
 
+import com.practice.chatbot.database.entity.Answer;
+import com.practice.chatbot.database.entity.Question;
+import com.practice.chatbot.database.entity.Theme;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

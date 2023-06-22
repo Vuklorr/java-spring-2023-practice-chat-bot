@@ -1,4 +1,4 @@
-package com.practice.chatbot.database;
+package com.practice.chatbot.database.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
