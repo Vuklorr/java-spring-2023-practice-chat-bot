@@ -11,7 +11,7 @@ import java.util.List;
 public class ThemeDAOImpl implements ThemeDAO {
     @Override
     public List<Theme> allThemes() {
-        List themes = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Theme").list();
+        List<Theme> themes = (List<Theme>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Theme").list();
         HibernateSessionFactoryUtil.getSessionFactory().close();
         return themes;
     }

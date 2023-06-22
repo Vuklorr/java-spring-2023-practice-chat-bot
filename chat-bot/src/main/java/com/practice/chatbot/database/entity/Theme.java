@@ -15,5 +15,10 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private String name;
+    private String content;
+
+    public Theme(Theme theme) {
+        this.id = theme.getId();
+        this.content  = theme.getContent();
+    }
 }

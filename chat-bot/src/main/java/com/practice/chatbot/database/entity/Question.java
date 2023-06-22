@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "questions")
+@Table(name = "question")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,16 +16,16 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column()
     private int themeID;
     @Column
     private String question;
     @Column
     private int answerID;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "themeID")
+    @JoinColumn(referencedColumnName = "id")
     private Theme theme;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "answerID")
+    @JoinColumn(referencedColumnName = "id")
     private Answer answer;
 }
