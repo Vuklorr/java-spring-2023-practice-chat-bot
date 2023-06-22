@@ -1,6 +1,6 @@
 package com.practice.chatbot.configutation;
 
-import com.practice.chatbot.AssistChatBot;
+import com.practice.chatbot.component.impl.AssistChatBot;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -21,7 +21,7 @@ public class Initializer {
     public void init() {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot((LongPollingBot) bot);
+            telegramBotsApi.registerBot(bot);
         } catch (TelegramApiException e) {
             log.error(e.getMessage());
         }
