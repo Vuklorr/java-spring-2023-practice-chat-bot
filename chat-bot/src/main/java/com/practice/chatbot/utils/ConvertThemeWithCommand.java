@@ -11,7 +11,7 @@ public class ConvertThemeWithCommand {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(int i = 0; i < themeList.size(); i++) {
-            stringBuilder.append("\\").append(i + 1).append(themeList.get(i)).append("\n");
+            stringBuilder.append("/").append(i + 1).append(". ").append(themeList.get(i).getContent()).append("\n");
         }
         return stringBuilder.toString();
     }

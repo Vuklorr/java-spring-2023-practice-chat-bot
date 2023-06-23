@@ -87,7 +87,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
 
         message.setText("Привет, " + userName + "!\n"
                 + "Я чат-бот для обеспечения тех.поддержки работников ОАО \"РЖД\"!\n"
-                + "Выберите тему вопроса:"
+                + "Выберите тему вопроса:\n"
                 + themCommand);
         //message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
 
