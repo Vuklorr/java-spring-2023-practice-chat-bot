@@ -1,8 +1,7 @@
 package com.practice.chatbot.database.service;
 
-import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Theme;
-import com.practice.chatbot.database.implementation.ThemeDAOImpl;
+import com.practice.chatbot.database.dao.implementation.ThemeDAOImpl;
 
 import java.util.List;
 

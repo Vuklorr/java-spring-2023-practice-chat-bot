@@ -1,52 +1,52 @@
-package com.practice.chatbot.database.implementation;
+package com.practice.chatbot.database.dao.implementation;
 
-import com.practice.chatbot.database.entity.Theme;
-import com.practice.chatbot.database.interfaces.ThemeDAO;
+import com.practice.chatbot.database.entity.Answer;
+import com.practice.chatbot.database.dao.AnswerDAO;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class ThemeDAOImpl implements ThemeDAO {
+public class AnswerDAOImpl implements AnswerDAO {
     @Override
-    public List<Theme> allThemes() {
-        List<Theme> themes = (List<Theme>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Theme").list();
+    public List<Answer> allAnswer() {
+        List answers = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
         HibernateSessionFactoryUtil.getSessionFactory().close();
-        return themes;
+        return answers;
     }
 
     @Override
-    public void add(Theme theme) {
+    public void add(Answer answer) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(theme);
+        session.save(answer);
         transaction.commit();
         session.close();
     }
 
     @Override
-    public void delete(Theme theme) {
+    public void delete(Answer answer) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(theme);
+        session.delete(answer);
         transaction.commit();
         session.close();
     }
 
     @Override
-    public void edit(Theme theme) {
+    public void edit(Answer answer) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(theme);
+        session.update(answer);
         transaction.commit();
         session.close();
     }
 
     @Override
-    public Theme findByID(int id) {
-        Theme theme = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Theme.class, id);
+    public Answer findByID(int id) {
+        Answer answer = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
         HibernateSessionFactoryUtil.getSessionFactory().close();
-        return theme;
+        return answer;
     }
 }

@@ -1,12 +1,13 @@
 package com.practice.chatbot.database.service;
 
+import com.practice.chatbot.database.dao.AnswerDAO;
 import com.practice.chatbot.database.entity.Answer;
-import com.practice.chatbot.database.implementation.AnswerDAOImpl;
+import com.practice.chatbot.database.dao.implementation.AnswerDAOImpl;
 
 import java.util.List;
 
 public class AnswerService {
-    private AnswerDAOImpl AnswerEntity = new AnswerDAOImpl();
+    private final AnswerDAO AnswerEntity = new AnswerDAOImpl();
 
     public AnswerService(){
     }

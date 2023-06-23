@@ -1,4 +1,4 @@
-package com.practice.chatbot.database.interfaces;
+package com.practice.chatbot.database.dao;
 
 import com.practice.chatbot.database.entity.Theme;
 

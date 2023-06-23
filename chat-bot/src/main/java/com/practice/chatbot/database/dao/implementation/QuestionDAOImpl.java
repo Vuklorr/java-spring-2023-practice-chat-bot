@@ -1,8 +1,8 @@
-package com.practice.chatbot.database.implementation;
+package com.practice.chatbot.database.dao.implementation;
 
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Question;
-import com.practice.chatbot.database.interfaces.QuestionDAO;
+import com.practice.chatbot.database.dao.QuestionDAO;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

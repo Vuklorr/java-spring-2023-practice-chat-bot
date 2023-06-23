@@ -2,7 +2,7 @@ package com.practice.chatbot.database.service;
 
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Question;
-import com.practice.chatbot.database.implementation.QuestionDAOImpl;
+import com.practice.chatbot.database.dao.implementation.QuestionDAOImpl;
 
 import java.util.List;
 
