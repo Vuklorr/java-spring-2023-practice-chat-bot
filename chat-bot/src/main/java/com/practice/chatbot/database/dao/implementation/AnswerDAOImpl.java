@@ -12,7 +12,6 @@ public class AnswerDAOImpl implements AnswerDAO {
     @Override
     public List<Answer> allAnswer() {
         List answers = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return answers;
     }
 
@@ -22,7 +21,6 @@ public class AnswerDAOImpl implements AnswerDAO {
         Transaction transaction = session.beginTransaction();
         session.save(answer);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -31,7 +29,6 @@ public class AnswerDAOImpl implements AnswerDAO {
         Transaction transaction = session.beginTransaction();
         session.delete(answer);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -40,13 +37,11 @@ public class AnswerDAOImpl implements AnswerDAO {
         Transaction transaction = session.beginTransaction();
         session.update(answer);
         transaction.commit();
-        session.close();
     }
 
     @Override
     public Answer findByID(int id) {
         Answer answer = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return answer;
     }
 }

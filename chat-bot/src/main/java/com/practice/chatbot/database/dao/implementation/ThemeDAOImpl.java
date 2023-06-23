@@ -11,9 +11,7 @@ import java.util.List;
 public class ThemeDAOImpl implements ThemeDAO {
     @Override
     public List<Theme> allThemes() {
-        List<Theme> themes = (List<Theme>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Theme").list();
-        HibernateSessionFactoryUtil.getSessionFactory().close();
-        return themes;
+        return (List<Theme>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Theme").list();
     }
 
     @Override
@@ -22,7 +20,6 @@ public class ThemeDAOImpl implements ThemeDAO {
         Transaction transaction = session.beginTransaction();
         session.save(theme);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -31,7 +28,6 @@ public class ThemeDAOImpl implements ThemeDAO {
         Transaction transaction = session.beginTransaction();
         session.delete(theme);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -40,13 +36,11 @@ public class ThemeDAOImpl implements ThemeDAO {
         Transaction transaction = session.beginTransaction();
         session.update(theme);
         transaction.commit();
-        session.close();
     }
 
     @Override
     public Theme findByID(int id) {
         Theme theme = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Theme.class, id);
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return theme;
     }
 }

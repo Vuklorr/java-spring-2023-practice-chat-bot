@@ -21,4 +21,5 @@ public class Theme {
         this.id = theme.getId();
         this.content  = theme.getContent();
     }
+
 }

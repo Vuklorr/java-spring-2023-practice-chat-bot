@@ -1,5 +1,6 @@
 package com.practice.chatbot.database.service;
 
+import com.practice.chatbot.database.dao.QuestionDAO;
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Question;
 import com.practice.chatbot.database.dao.implementation.QuestionDAOImpl;
@@ -9,7 +10,7 @@ import java.util.List;
 // This is service for working with DAO classes.
 public class QuestionService {
     // Creating a
-    private QuestionDAOImpl QuestionEntity = new QuestionDAOImpl();
+    private final QuestionDAO QuestionEntity = new QuestionDAOImpl();
 
     public QuestionService(){
     }

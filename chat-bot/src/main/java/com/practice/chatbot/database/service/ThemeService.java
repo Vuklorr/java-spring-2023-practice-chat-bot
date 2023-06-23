@@ -1,12 +1,13 @@
 package com.practice.chatbot.database.service;
 
+import com.practice.chatbot.database.dao.ThemeDAO;
 import com.practice.chatbot.database.entity.Theme;
 import com.practice.chatbot.database.dao.implementation.ThemeDAOImpl;
 
 import java.util.List;
 
 public class ThemeService {
-    private ThemeDAOImpl ThemeEntity = new ThemeDAOImpl();
+    private final ThemeDAO ThemeEntity = new ThemeDAOImpl();
 
     public ThemeService(){
     }

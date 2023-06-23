@@ -15,7 +15,6 @@ public class QuestionDAOImpl implements QuestionDAO {
     // List of all question in DB
     public List allQuestion() {
         List questions = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return questions;
     }
 
@@ -26,7 +25,6 @@ public class QuestionDAOImpl implements QuestionDAO {
         Transaction transaction = session.beginTransaction();
         session.save(question);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -36,7 +34,6 @@ public class QuestionDAOImpl implements QuestionDAO {
         Transaction transaction = session.beginTransaction();
         session.delete(question);
         transaction.commit();
-        session.close();
     }
 
     @Override
@@ -46,21 +43,18 @@ public class QuestionDAOImpl implements QuestionDAO {
         Transaction transaction = session.beginTransaction();
         session.update(question);
         transaction.commit();
-        session.close();
     }
 
     @Override
     // Method that finds a question by his ID
     public Question findByID(int id) {
         Question question = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Question.class, id);
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return question;
     }
     @Override
     // Method that helps to find connected to question answers
     public Answer findAnswerByID(int id) {
         Answer answer = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
-        HibernateSessionFactoryUtil.getSessionFactory().close();
         return answer;
     }
 }

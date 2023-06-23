@@ -16,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScope
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Component
@@ -113,10 +114,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
     private void selectThemeBot(long chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        ThemeService themeService = new ThemeService();
-        List themeList = themeService.findAllThemes();
-
-        message.setText(themeList.toString());
+        message.setText("EMPTY");
         try {
             execute(message);
             log.info("Reply sent");
