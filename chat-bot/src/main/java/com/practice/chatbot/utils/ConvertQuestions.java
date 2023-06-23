@@ -2,7 +2,7 @@ package com.practice.chatbot.utils;
 
 import java.util.Arrays;
 
-public class CovertQuestions {
+public class ConvertQuestions {
     public static String convertQuestion (final String userQuestion) {
         StringBuilder convertedQuestion = new StringBuilder();
         String[] convertedQuestionList = userQuestion.toLowerCase().split(" ");

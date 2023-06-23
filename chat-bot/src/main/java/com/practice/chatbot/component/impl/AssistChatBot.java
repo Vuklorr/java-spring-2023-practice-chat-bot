@@ -3,6 +3,8 @@ package com.practice.chatbot.component.impl;
 import com.practice.chatbot.component.AssistBotCommand;
 import com.practice.chatbot.component.utils.Buttons;
 import com.practice.chatbot.configutation.BotConfig;
+import com.practice.chatbot.database.controller.ThemeController;
+import com.practice.chatbot.utils.ConvertThemeWithCommand;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -77,12 +79,17 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
     }
 
     private void startBot(long chatId, String userName) {
+
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
+
+        String themCommand = ConvertThemeWithCommand.convertThem();
+
         message.setText("Привет, " + userName + "!\n"
-                + "Я чат-бот для обеспечения тех.поддержки работников РЖД!\n"
-                + "Выберите необходимую команду:");
-        message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
+                + "Я чат-бот для обеспечения тех.поддержки работников ОАО \"РЖД\"!\n"
+                + "Выберите тему вопроса:"
+                + themCommand);
+        //message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
 
         try {
             execute(message);
