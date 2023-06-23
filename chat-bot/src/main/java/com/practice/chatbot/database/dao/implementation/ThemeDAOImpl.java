@@ -40,7 +40,6 @@ public class ThemeDAOImpl implements ThemeDAO {
 
     @Override
     public Theme findByID(int id) {
-        Theme theme = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Theme.class, id);
-        return theme;
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Theme.class, id);
     }
 }

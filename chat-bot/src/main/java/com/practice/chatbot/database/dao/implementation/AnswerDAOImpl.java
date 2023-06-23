@@ -2,6 +2,7 @@ package com.practice.chatbot.database.dao.implementation;
 
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.dao.AnswerDAO;
+import com.practice.chatbot.database.entity.Theme;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,8 +12,8 @@ import java.util.List;
 public class AnswerDAOImpl implements AnswerDAO {
     @Override
     public List<Answer> allAnswer() {
-        List answers = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
-        return answers;
+        return (List<Answer>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
+
     }
 
     @Override
@@ -41,7 +42,6 @@ public class AnswerDAOImpl implements AnswerDAO {
 
     @Override
     public Answer findByID(int id) {
-        Answer answer = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
-        return answer;
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
     }
 }

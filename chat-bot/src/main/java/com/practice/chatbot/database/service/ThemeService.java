@@ -1,30 +1,13 @@
 package com.practice.chatbot.database.service;
 
-import com.practice.chatbot.database.dao.ThemeDAO;
 import com.practice.chatbot.database.entity.Theme;
-import com.practice.chatbot.database.dao.implementation.ThemeDAOImpl;
 
 import java.util.List;
 
-public class ThemeService {
-    private final ThemeDAO ThemeEntity = new ThemeDAOImpl();
-
-    public ThemeService(){
-    }
-
-    public Theme findTheme(int id){
-        return ThemeEntity.findByID(id);
-    }
-    public void saveTheme(Theme theme){
-        ThemeEntity.add(theme);
-    }
-    public void deleteTheme(Theme theme){
-        ThemeEntity.delete(theme);
-    }
-    public void updateTheme(Theme theme){
-        ThemeEntity.edit(theme);
-    }
-    public List<Theme> findAllThemes(){
-        return ThemeEntity.allThemes();
-    }
+public interface ThemeService {
+    public Theme findTheme(int id);
+    public void saveTheme(Theme theme);
+    public void deleteTheme(Theme theme);
+    public void updateTheme(Theme theme);
+    public List<Theme> findAllThemes();
 }

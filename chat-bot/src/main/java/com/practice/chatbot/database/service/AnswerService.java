@@ -1,30 +1,14 @@
 package com.practice.chatbot.database.service;
 
-import com.practice.chatbot.database.dao.AnswerDAO;
 import com.practice.chatbot.database.entity.Answer;
-import com.practice.chatbot.database.dao.implementation.AnswerDAOImpl;
 
 import java.util.List;
 
-public class AnswerService {
-    private final AnswerDAO AnswerEntity = new AnswerDAOImpl();
+public interface AnswerService {
+    public Answer findAnswer(int id);
+    public void saveAnswer(Answer answer);
+    public void deleteAnswer(Answer answer);
+    public void updateAnswer(Answer answer);
+    public List<Answer> findAllAnswer();
 
-    public AnswerService(){
-    }
-
-    public Answer findAnswer(int id){
-        return AnswerEntity.findByID(id);
-    }
-    public void saveAnswer(Answer answer){
-        AnswerEntity.add(answer);
-    }
-    public void deleteAnswer(Answer answer){
-        AnswerEntity.delete(answer);
-    }
-    public void updateAnswer(Answer answer){
-        AnswerEntity.edit(answer);
-    }
-    public List<Answer> findAllAnswer(){
-        return AnswerEntity.allAnswer();
-    }
 }

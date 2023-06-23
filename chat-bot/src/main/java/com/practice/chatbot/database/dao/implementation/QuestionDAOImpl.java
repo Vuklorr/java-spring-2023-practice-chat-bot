@@ -3,6 +3,7 @@ package com.practice.chatbot.database.dao.implementation;
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Question;
 import com.practice.chatbot.database.dao.QuestionDAO;
+import com.practice.chatbot.database.entity.Theme;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,9 +14,8 @@ import java.util.List;
 public class QuestionDAOImpl implements QuestionDAO {
     @Override
     // List of all question in DB
-    public List allQuestion() {
-        List questions = HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Answer").list();
-        return questions;
+    public List<Question> allQuestion() {
+        return (List<Question>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Question").list();
     }
 
     @Override
@@ -48,13 +48,11 @@ public class QuestionDAOImpl implements QuestionDAO {
     @Override
     // Method that finds a question by his ID
     public Question findByID(int id) {
-        Question question = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Question.class, id);
-        return question;
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Question.class, id);
     }
     @Override
     // Method that helps to find connected to question answers
     public Answer findAnswerByID(int id) {
-        Answer answer = HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
-        return answer;
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
     }
 }

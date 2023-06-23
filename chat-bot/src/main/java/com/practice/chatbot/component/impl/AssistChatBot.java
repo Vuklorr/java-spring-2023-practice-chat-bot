@@ -3,8 +3,6 @@ package com.practice.chatbot.component.impl;
 import com.practice.chatbot.component.AssistBotCommand;
 import com.practice.chatbot.component.utils.Buttons;
 import com.practice.chatbot.configutation.BotConfig;
-import com.practice.chatbot.database.entity.Theme;
-import com.practice.chatbot.database.service.ThemeService;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,9 +12,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Component
