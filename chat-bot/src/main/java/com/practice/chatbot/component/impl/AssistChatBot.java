@@ -98,9 +98,9 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/delete" -> delete(chatId);
 
             case "/subthemes" -> readSubTheme(chatId);
-            case "/themes" -> read(chatId);
-            case "/answers" -> update(chatId);
-            case "/questions" -> delete(chatId);
+            case "/themes" -> readTheme(chatId);
+            case "/answers" -> readAnswer(chatId);
+            case "/questions" -> readQuestion(chatId);
 
             }
     }
