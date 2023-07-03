@@ -3,7 +3,6 @@ package com.practice.chatbot.component.impl;
 import com.practice.chatbot.component.AssistBotCommand;
 import com.practice.chatbot.component.utils.Buttons;
 import com.practice.chatbot.configutation.BotConfig;
-import com.practice.chatbot.database.controller.ThemeController;
 import com.practice.chatbot.utils.ConvertThemeWithCommand;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +11,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -89,9 +87,21 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/start" -> startBot(chatId, userName);
             case "/theme" -> selectThemeBot(chatId);
             case "/help" -> sendHelpText(chatId);
+
             case "/superuser" -> superUser(chatId);
             case "correctPassword" -> correctPassword(chatId, userName);
             case "unCorrectPassword" -> unCorrectPassword(chatId);
+
+            case "/create" -> create(chatId);
+            case "/read" -> read(chatId);
+            case "/update" -> update(chatId);
+            case "/delete" -> delete(chatId);
+
+            case "/subthemes" -> readSubTheme(chatId);
+            case "/themes" -> read(chatId);
+            case "/answers" -> update(chatId);
+            case "/questions" -> delete(chatId);
+
             }
     }
 
@@ -144,7 +154,6 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText("Введите пароль:");
-        //message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
         try {
             execute(message);
             lastMethod = "superUser";
@@ -159,7 +168,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         message.setChatId(chatId);
         message.setText("Добро пожаловать, " + userName + "!\n" +
                 "Выберите CRUD операцию:\n");
-        message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupCRUD());
         try {
             execute(message);
             log.info("Reply sent");
@@ -180,6 +189,71 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
+    private void create(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("1В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
 
+    private void read(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Выберите таблицу, которую хотите посмотреть:");
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupTable());
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void update(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("3В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void delete(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("4В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void readSubTheme(Long chatId) {
+
+    }
+
+    private void readTheme(Long chatId) {
+
+    }
+
+
+    private void readQuestion(Long chatId) {
+
+    }
+
+
+    private void readAnswer(Long chatId) {
+
+    }
 
 }
