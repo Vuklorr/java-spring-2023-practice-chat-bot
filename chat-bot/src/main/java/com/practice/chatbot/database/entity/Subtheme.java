@@ -5,27 +5,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 @Entity
-@Table(name = "question")
+@Table(name ="subtheme")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//
-public class Question {
+public class Subtheme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int themeID;
+    private int content;
     @Column
-    private String question;
-    @Column
-    private int answerID;
+    private int theme_id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private Theme theme;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
-    private Answer answer;
 }
