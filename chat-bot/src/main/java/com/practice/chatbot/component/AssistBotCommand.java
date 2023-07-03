@@ -7,15 +7,14 @@ import java.util.List;
 public interface AssistBotCommand {
     List<BotCommand> BOT_COMMAND_LIST = List.of(
             new BotCommand("/start", "запуск бота"),
-            new BotCommand("/help", "информация о боте")
+            new BotCommand("/help", "список команд бота")
     );
 
     String HELP_TEXT = """
             Это чат-бот для обеспечения тех.поддержки работников РЖД.
-            Ниже представлены команды ,которыми вы можете воспользоваться и описание для них:
+            Ниже представлены команды, которыми вы можете воспользоваться и описание для них:
 
             /start - запуск бота
-            /theme - тема вопроса
-            /help - информация о боте
+            /обед - тема вопроса
             """;
 }
