@@ -9,8 +9,7 @@ import java.util.List;
 public class SubthemeController {
     private final SubthemeService subthemeService = new SubthemeServiceImpl();
 
-    public Subtheme findSubtheme(int id){return subthemeService.findSubtheme(id);}
-    public Subtheme findSubtheme(int id){
+    public Subtheme findSubtheme(int id) {
         return subthemeService.findSubtheme(id);
     }
 
@@ -33,8 +32,5 @@ public class SubthemeController {
         subthemeService.updateSubtheme(subtheme);
     }
 
-    public List<Subtheme> findAllSubtheme(){
-        return subthemeService.findAllSubtheme();
-    }
 
 }

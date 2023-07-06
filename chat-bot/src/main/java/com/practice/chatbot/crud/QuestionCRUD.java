@@ -15,7 +15,7 @@ public class QuestionCRUD {
 
         for(Question question : questionList) {
             stringBuilder.append(" | ").append(question.getId())
-                    .append(" | ").append(question.getThemeID())
+                    .append(" | ").append(question.getSubthemeID())
                     .append(" |").append(question.getQuestion())
                     .append(" |").append(question.getAnswerID()).append("\n");
         }

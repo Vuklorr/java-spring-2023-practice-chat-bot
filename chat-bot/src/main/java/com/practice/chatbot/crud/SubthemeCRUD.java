@@ -11,7 +11,7 @@ public class SubthemeCRUD {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("| ID |  ПОДТЕМЫ  | ID ТЕМЫ |\n |-----------------|\n");
 
-        List<Subtheme> subthemesList = subthemController.findAllSubtheme();
+        List<Subtheme> subthemesList = subthemController.findAllSubthemes();
 
         for(Subtheme subtheme : subthemesList) {
             stringBuilder.append(" | ").append(subtheme.getId())
