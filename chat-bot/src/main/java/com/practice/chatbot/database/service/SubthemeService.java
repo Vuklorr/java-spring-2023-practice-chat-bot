@@ -7,9 +7,9 @@ import com.practice.chatbot.database.entity.Subtheme;
 import java.util.List;
 
 public interface SubthemeService {
-    public Subtheme findQuestion(int id);
-    public void saveQuestion(Subtheme subtheme);
-    public void deleteQuestion(Subtheme subtheme);
-    public void updateQuestion(Subtheme subtheme);
-    public List<Subtheme> findAllQuestion();
+    public Subtheme findSubtheme(int id);
+    public void saveSubtheme(Subtheme subtheme);
+    public void deleteSubtheme(Subtheme subtheme);
+    public void updateSubtheme(Subtheme subtheme);
+    public List<Subtheme> findAllSubtheme();
 }

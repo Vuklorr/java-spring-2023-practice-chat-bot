@@ -10,17 +10,17 @@ import java.util.List;
 public class SubthemeServiceImpl implements SubthemeService {
     private final SubthemeDAO subthemeDAO = new SubthemeDAOImpl();
     @Override
-    public Subtheme findQuestion(int id) {return subthemeDAO.findByID(id);}
+    public Subtheme findSubtheme(int id) {return subthemeDAO.findByID(id);}
 
     @Override
-    public void saveQuestion(Subtheme subtheme) {subthemeDAO.add(subtheme);}
+    public void saveSubtheme(Subtheme subtheme) {subthemeDAO.add(subtheme);}
 
     @Override
-    public void deleteQuestion(Subtheme subtheme) {subthemeDAO.delete(subtheme);}
+    public void deleteSubtheme(Subtheme subtheme) {subthemeDAO.delete(subtheme);}
 
     @Override
-    public void updateQuestion(Subtheme subtheme) {subthemeDAO.edit(subtheme);}
+    public void updateSubtheme(Subtheme subtheme) {subthemeDAO.edit(subtheme);}
 
     @Override
-    public List<Subtheme> findAllQuestion() {return subthemeDAO.allSubthemes();}
+    public List<Subtheme> findAllSubtheme() {return subthemeDAO.allSubthemes();}
 }

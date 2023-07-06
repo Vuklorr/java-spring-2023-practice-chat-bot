@@ -17,7 +17,7 @@ public class Subtheme {
     @Column
     private int content;
     @Column
-    private int theme_id;
+    private int themeID;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "id")
     private Theme theme;

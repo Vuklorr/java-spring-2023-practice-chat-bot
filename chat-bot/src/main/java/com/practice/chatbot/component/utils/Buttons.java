@@ -27,13 +27,13 @@ public class Buttons {
         return getInlineKeyboardMarkup(CREATE_BUTTON, READ_BUTTON, UPDATE_BUTTON, DELETE_BUTTON);
     }
 
-    public static InlineKeyboardMarkup inlineKeyboardMarkupTable() {
-        SUB_THEME_TABLE_BUTTON.setCallbackData("/subthemes");
-        THEME_TABLE_BUTTON.setCallbackData("/themes");
-        ANSWER_TABLE_BUTTON.setCallbackData("/answers");
-        QUESTION_TABLE_BUTTON.setCallbackData("/questions");
+    public static InlineKeyboardMarkup inlineKeyboardMarkupReadTable() {
+        THEME_TABLE_BUTTON.setCallbackData("/read_themes");
+        SUB_THEME_TABLE_BUTTON.setCallbackData("/read_subthemes");
+        ANSWER_TABLE_BUTTON.setCallbackData("/read_answers");
+        QUESTION_TABLE_BUTTON.setCallbackData("/read_questions");
 
-        return getInlineKeyboardMarkup(SUB_THEME_TABLE_BUTTON, THEME_TABLE_BUTTON, ANSWER_TABLE_BUTTON, QUESTION_TABLE_BUTTON);
+        return getInlineKeyboardMarkup(THEME_TABLE_BUTTON, SUB_THEME_TABLE_BUTTON, ANSWER_TABLE_BUTTON, QUESTION_TABLE_BUTTON);
     }
 
     private static InlineKeyboardMarkup getInlineKeyboardMarkup(InlineKeyboardButton subThemeTableButton, InlineKeyboardButton themeTableButton, InlineKeyboardButton answerTableButton, InlineKeyboardButton questionTableButton) {
