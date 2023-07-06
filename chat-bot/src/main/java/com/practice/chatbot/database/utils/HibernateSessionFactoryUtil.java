@@ -2,6 +2,7 @@ package com.practice.chatbot.database.utils;
 
 import com.practice.chatbot.database.entity.Answer;
 import com.practice.chatbot.database.entity.Question;
+import com.practice.chatbot.database.entity.Subtheme;
 import com.practice.chatbot.database.entity.Theme;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,6 +20,7 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Question.class);
                 configuration.addAnnotatedClass(Answer.class);
                 configuration.addAnnotatedClass(Theme.class);
+                configuration.addAnnotatedClass(Subtheme.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 

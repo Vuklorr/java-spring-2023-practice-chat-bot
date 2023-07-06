@@ -20,5 +20,4 @@ public class Answer {
     private String content; // answer itself
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
-
 }

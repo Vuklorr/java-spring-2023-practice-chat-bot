@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "theme")
 @Data
@@ -21,5 +23,4 @@ public class Theme {
         this.id = theme.getId();
         this.content  = theme.getContent();
     }
-
 }

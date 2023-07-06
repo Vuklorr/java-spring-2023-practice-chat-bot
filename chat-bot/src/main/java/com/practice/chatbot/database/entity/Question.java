@@ -17,15 +17,15 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int themeID;
+    private int subthemeID;
     @Column
     private String question;
     @Column
     private int answerID;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
-    private Theme theme;
+    @JoinColumn(name="subthemeID",referencedColumnName = "id",insertable=false, updatable=false)
+    private Subtheme subtheme;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name="answerID",referencedColumnName = "id",insertable=false, updatable=false)
     private Answer answer;
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name ="subtheme")
 @Data
@@ -15,10 +17,12 @@ public class Subtheme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
-    private int content;
+    private String content;
     @Column
     private int theme_id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name="theme_id",referencedColumnName = "id",insertable=false, updatable=false)
     private Theme theme;
+    @OneToMany(mappedBy = "subtheme", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Question> questions;
 }

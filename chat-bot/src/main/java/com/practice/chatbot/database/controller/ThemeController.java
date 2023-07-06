@@ -24,10 +24,7 @@ public class ThemeController {
     public void updateTheme(Theme theme){
         themeService.updateTheme(theme);
     }
-
-
     public List<Theme> findAllThemes(){
         return themeService.findAllThemes();
     }
-
 }

@@ -12,4 +12,5 @@ public interface SubthemeDAO {
     void delete(Subtheme subtheme);
     void edit(Subtheme subtheme);
     Subtheme findByID(int id);
+    List<Subtheme> query(String uMessage);
     }
