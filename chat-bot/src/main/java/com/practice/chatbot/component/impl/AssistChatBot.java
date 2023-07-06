@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -29,6 +30,8 @@ import java.util.List;
 public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCommand {
 
     private final BotConfig config;
+
+    private String lastMethod;
 
     public AssistChatBot(BotConfig config) {
         this.config = config;
@@ -52,31 +55,41 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
 
     @Override
     public void onUpdateReceived(@NotNull Update update) {
-        long chatId;
+        long chatId  = 0;
         long userId = 0;
-        String userName;
-        String receivedMessage;
+        String userName = "";
+        String receivedMessage = "";
 
-        //если получено сообщение текстом
-        if(update.hasMessage()) {
+        if(lastMethod == null) {
+            //если получено сообщение текстом
+            if(update.hasMessage()) {
+                chatId = update.getMessage().getChatId();
+                userId = update.getMessage().getFrom().getId();
+                userName = update.getMessage().getFrom().getFirstName();
+                receivedMessage = update.getMessage().getText();
+
+                //если нажата одна из кнопок бота
+            } else if (update.hasCallbackQuery()) {
+                chatId = update.getCallbackQuery().getMessage().getChatId();
+                userId = update.getCallbackQuery().getFrom().getId();
+                userName = update.getCallbackQuery().getFrom().getFirstName();
+                receivedMessage = update.getCallbackQuery().getData();
+            }
+        } else {
             chatId = update.getMessage().getChatId();
             userId = update.getMessage().getFrom().getId();
             userName = update.getMessage().getFrom().getFirstName();
 
-            if (update.getMessage().hasText()) {
-                receivedMessage = update.getMessage().getText();
-                botAnswerUtils(receivedMessage, chatId, userName);
+            if(lastMethod.equals("superUser")) {
+                if (update.getMessage().getText().equals("123")) {
+                    receivedMessage = "correctPassword";
+                } else {
+                    receivedMessage = "unCorrectPassword";
+                }
             }
-
-            //если нажата одна из кнопок бота
-        } else if (update.hasCallbackQuery()) {
-            chatId = update.getCallbackQuery().getMessage().getChatId();
-            userId = update.getCallbackQuery().getFrom().getId();
-            userName = update.getCallbackQuery().getFrom().getFirstName();
-            receivedMessage = update.getCallbackQuery().getData();
-
-            botAnswerUtils(receivedMessage, chatId, userName);
         }
+        lastMethod = null;
+        botAnswerUtils(receivedMessage, chatId, userName);
     }
 
     private void botAnswerUtils(String receiveMessage, long chatId, String userName) {
@@ -85,7 +98,22 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/theme" -> selectThemeBot(chatId);
             case "/help" -> sendHelpText(chatId);
             case "/1","/2","/3" -> getSubthemeBot(chatId,receiveMessage);
-        }
+
+            case "/superuser" -> superUser(chatId);
+            case "correctPassword" -> correctPassword(chatId, userName);
+            case "unCorrectPassword" -> unCorrectPassword(chatId);
+
+            case "/create" -> create(chatId);
+            case "/read" -> read(chatId);
+            case "/update" -> update(chatId);
+            case "/delete" -> delete(chatId);
+
+            case "/subthemes" -> readSubTheme(chatId);
+            case "/themes" -> readTheme(chatId);
+            case "/answers" -> readAnswer(chatId);
+            case "/questions" -> readQuestion(chatId);
+
+            }
     }
 
     private void startBot(long chatId, String userName) {
@@ -99,7 +127,6 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
                 + "Я чат-бот для обеспечения тех.поддержки работников ОАО \"РЖД\"!\n"
                 + "Выберите тему вопроса:\n"
                 + themCommand);
-        //message.setReplyMarkup(Buttons.inlineKeyboardMarkup());
 
         try {
             execute(message);
@@ -113,7 +140,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText(AssistBotCommand.HELP_TEXT);
-
+        message.setParseMode(ParseMode.MARKDOWNV2);
         try {
             execute(message);
             log.info("Reply sent");
@@ -122,7 +149,6 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    //FIXME запросы не работают хз, почему
     private void selectThemeBot(long chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -147,5 +173,110 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
+    private void superUser(long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Введите пароль:");
+        try {
+            execute(message);
+            lastMethod = "superUser";
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void correctPassword(long chatId, String userName) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Добро пожаловать, " + userName + "!\n" +
+                "Выберите CRUD операцию:\n");
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupCRUD());
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void unCorrectPassword(long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Неверный пароль!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void create(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("1В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void read(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Выберите таблицу, которую хотите посмотреть:");
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupTable());
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void update(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("3В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void delete(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("4В разработке!");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void readSubTheme(Long chatId) {
+
+    }
+
+    private void readTheme(Long chatId) {
+
+    }
+
+
+    private void readQuestion(Long chatId) {
+
+    }
+
+
+    private void readAnswer(Long chatId) {
+
+    }
 
 }
