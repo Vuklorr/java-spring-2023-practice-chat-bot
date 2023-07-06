@@ -8,12 +8,14 @@ import com.practice.chatbot.database.controller.ThemeController;
 import com.practice.chatbot.database.entity.Theme;
 import com.practice.chatbot.database.service.implementation.ThemeServiceImpl;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
+import com.practice.chatbot.crud.AnswerCRUD;
+import com.practice.chatbot.crud.QuestionCRUD;
+import com.practice.chatbot.crud.SubthemeCRUD;
 import com.practice.chatbot.utils.ConvertThemeWithCommand;
 import com.practice.chatbot.utils.SubthemeFinder;
+import com.practice.chatbot.crud.ThemeCRUD;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -22,8 +24,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import java.util.List;
 
 @Slf4j
 @Component
@@ -97,7 +97,6 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/start" -> startBot(chatId, userName);
             case "/theme" -> selectThemeBot(chatId);
             case "/help" -> sendHelpText(chatId);
-            case "/1","/2","/3" -> getSubthemeBot(chatId,receiveMessage);
 
             case "/superuser" -> superUser(chatId);
             case "correctPassword" -> correctPassword(chatId, userName);
@@ -108,10 +107,10 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/update" -> update(chatId);
             case "/delete" -> delete(chatId);
 
-            case "/subthemes" -> readSubTheme(chatId);
-            case "/themes" -> readTheme(chatId);
-            case "/answers" -> readAnswer(chatId);
-            case "/questions" -> readQuestion(chatId);
+            case "/read_themes" -> readTheme(chatId);
+            case "/read_subthemes" -> readSubTheme(chatId);
+            case "/read_answers" -> readAnswer(chatId);
+            case "/read_questions" -> readQuestion(chatId);
 
             }
     }
@@ -228,7 +227,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         message.setText("Выберите таблицу, которую хотите посмотреть:");
-        message.setReplyMarkup(Buttons.inlineKeyboardMarkupTable());
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupReadTable());
         try {
             execute(message);
             log.info("Reply sent");
@@ -261,22 +260,68 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void readSubTheme(Long chatId) {
-
-    }
-
     private void readTheme(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
 
+        String themes = ThemeCRUD.themeRead();
+
+        message.setText("``` " + themes + "```");
+        message.setParseMode(ParseMode.MARKDOWNV2);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
     }
 
+    private void readSubTheme(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
 
-    private void readQuestion(Long chatId) {
+        String subthemes = SubthemeCRUD.subthemeRead();
 
+        message.setText("``` " + subthemes + "```");
+        message.setParseMode(ParseMode.MARKDOWNV2);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
     }
-
 
     private void readAnswer(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
 
+        String answer = AnswerCRUD.answerRead();
+
+        message.setText("``` " + answer + "```");
+        message.setParseMode(ParseMode.MARKDOWNV2);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void readQuestion(Long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        String question = QuestionCRUD.questionRead();
+
+        message.setText("``` " + question + "```");
+        message.setParseMode(ParseMode.MARKDOWNV2);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
     }
 
 }
