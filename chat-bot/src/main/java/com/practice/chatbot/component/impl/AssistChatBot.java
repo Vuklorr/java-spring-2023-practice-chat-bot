@@ -25,6 +25,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -108,6 +110,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/1","/2","/3" -> getSubthemeBot(chatId, receiveMessage);
             case "/s1","/s2","/s3","/s4" -> questionWelcome(chatId,receiveMessage);
             case "/ask" -> questionSolver(chatId,receiveMessage);
+            case "/r" -> messageAnswer(receiveMessage);
 
             case "/superuser" -> superUser(chatId);
             case "correctPassword" -> correctPassword(chatId, userName);
@@ -218,14 +221,31 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             StringBuilder sb = new StringBuilder("Поступил новый необработанный запрос: \n");
             sb.append("ChatID -> "+chatID+"\n").append("Вопрос: ").append(uQuestion);
             logMessage.setText(sb.toString());
-            try {
+            //FIXME Включить если нужны сообщения в группу
+            /*try {
                 execute(logMessage);
                 log.info("GroupMessage sent");
             } catch (TelegramApiException e) {
                 log.error(e.getMessage());
-            }
+            }*/
             message.setText("К сожалению, на данный момент ответа нет.\n" + "Ваш запрос был отправлен администраторам.");
         }
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void messageAnswer(String uMessage){
+        SendMessage message = new SendMessage();
+        String[] commands = uMessage.split(" ");
+        message.setChatId(commands[1]);
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        StringBuilder sb = new StringBuilder(String.format("[Ответ от администратора {%s}] :\n",date));
+        sb.append(commands[2]);
+        message.setText(sb.toString());
         try {
             execute(message);
             log.info("Reply sent");
