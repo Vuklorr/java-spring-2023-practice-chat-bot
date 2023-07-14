@@ -13,4 +13,5 @@ public interface SubthemeDAO {
     void edit(Subtheme subtheme);
     Subtheme findByID(int id);
     List<Subtheme> query(String uMessage);
+    int findID(String content);
     }

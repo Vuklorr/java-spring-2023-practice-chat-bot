@@ -31,6 +31,5 @@ public class SubthemeController {
     public void updateSubtheme(Subtheme subtheme){
         subthemeService.updateSubtheme(subtheme);
     }
-
-
+    public int findID(String uMessage){return subthemeService.findID(uMessage);}
 }

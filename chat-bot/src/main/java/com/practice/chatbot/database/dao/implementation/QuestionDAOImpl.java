@@ -6,6 +6,7 @@ import com.practice.chatbot.database.dao.QuestionDAO;
 import com.practice.chatbot.database.entity.Theme;
 import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
@@ -54,5 +55,19 @@ public class QuestionDAOImpl implements QuestionDAO {
     // Method that helps to find connected to question answers
     public Answer findAnswerByID(int id) {
         return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Answer.class, id);
+    }
+
+    @Override
+    public String getAnswer(int subthemeID, String content) {
+        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        content = content.trim();
+        session.beginTransaction();
+        String sqlQuery = String.format("select a.content from Question q inner join Answer a on q.answerID = a.id where q.subthemeID=%d and q.question like '%s'",subthemeID,content);
+        List list = session.createQuery(sqlQuery).list();
+        if (list.isEmpty()){
+            return null;
+        }
+        else return list.get(0).toString();
     }
 }

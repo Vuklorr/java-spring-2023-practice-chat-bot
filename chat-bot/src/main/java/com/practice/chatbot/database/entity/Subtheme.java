@@ -19,9 +19,9 @@ public class Subtheme {
     @Column
     private String content;
     @Column
-    private int themeID;
+    private int theme_id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="theme_id",referencedColumnName = "id",insertable=false, updatable=false)
+    @JoinColumn(name= "theme_id",referencedColumnName = "id",insertable=false, updatable=false)
     private Theme theme;
     @OneToMany(mappedBy = "subtheme", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;

@@ -25,4 +25,5 @@ public class SubthemeServiceImpl implements SubthemeService {
     public List<Subtheme> findAllSubthemes() {return subthemeDAO.allSubthemes();}
     @Override
     public List<Subtheme> query(String uMessage){return subthemeDAO.query(uMessage);}
+    public int findID(String uMessage){return subthemeDAO.findID(uMessage);}
 }

@@ -12,4 +12,5 @@ public interface QuestionDAO {
     void edit(Question question);
     Question findByID(int id);
     Answer findAnswerByID(int id);
+    String getAnswer(int subthemeID,String content);
 }

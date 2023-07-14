@@ -12,4 +12,5 @@ public interface QuestionService {
     public void updateQuestion(Question question);
     public List<Question> findAllQuestion();
     public Answer findAnswerByID(int id);
+    public String getAnswer(int subtheme, String uMessage);
 }

@@ -43,4 +43,6 @@ public class QuestionServiceImpl implements QuestionService {
     public Answer findAnswerByID(int id){
         return questionDAO.findAnswerByID(id);
     }
+
+    public String getAnswer(int subtheme,String uMessage){return questionDAO.getAnswer(subtheme,uMessage);}
 }

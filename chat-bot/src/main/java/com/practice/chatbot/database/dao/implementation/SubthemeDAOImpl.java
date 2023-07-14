@@ -58,4 +58,12 @@ public class SubthemeDAOImpl implements SubthemeDAO {
         List subthemes = session.createQuery(sqlQuery).list();
         return subthemes;
     }
+
+    public int findID(String content){
+        SessionFactory sessionFactory = HibernateSessionFactoryUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        String sqlQuery = String.format("SELECT s.id from Subtheme s where s.content like '%s'",content);
+        return Integer.parseInt(session.createQuery(sqlQuery).list().get(0).toString());
+    }
 }

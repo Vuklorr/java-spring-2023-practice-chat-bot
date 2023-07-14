@@ -16,16 +16,16 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Column(name = "subthemeid")
     private int subthemeID;
     @Column
     private String question;
-    @Column
+    @Column(name = "answerid")
     private int answerID;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="subthemeID",referencedColumnName = "id",insertable=false, updatable=false)
+    @JoinColumn(name= "subthemeid",referencedColumnName = "id",insertable=false, updatable=false)
     private Subtheme subtheme;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="answerID",referencedColumnName = "id",insertable=false, updatable=false)
+    @JoinColumn(name= "answerid",referencedColumnName = "id",insertable=false, updatable=false)
     private Answer answer;
 }

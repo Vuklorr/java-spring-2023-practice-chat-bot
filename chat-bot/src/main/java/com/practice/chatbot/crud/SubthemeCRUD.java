@@ -16,7 +16,7 @@ public class SubthemeCRUD {
         for(Subtheme subtheme : subthemesList) {
             stringBuilder.append(" | ").append(subtheme.getId())
                     .append(" | ").append(subtheme.getContent())
-                    .append(" |").append(subtheme.getThemeID()).append("\n");
+                    .append(" |").append(subtheme.getTheme_id()).append("\n");
         }
 
         return stringBuilder.toString();

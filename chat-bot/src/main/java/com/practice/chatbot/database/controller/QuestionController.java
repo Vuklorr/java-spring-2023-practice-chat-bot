@@ -34,4 +34,5 @@ public class QuestionController {
         return questionService.findAnswerByID(id);
     }
 
+    public String getAnswer(int subtheme,String uMessage){return questionService.getAnswer(subtheme,uMessage);}
 }

@@ -13,4 +13,5 @@ public interface SubthemeService {
     public void updateSubtheme(Subtheme subtheme);
     public List<Subtheme> findAllSubthemes();
     public List<Subtheme> query(String uMessage);
+    public int findID(String uMessage);
 }
