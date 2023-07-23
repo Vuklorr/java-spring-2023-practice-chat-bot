@@ -3,17 +3,12 @@ package com.practice.chatbot.component.impl;
 import com.practice.chatbot.component.AssistBotCommand;
 import com.practice.chatbot.component.utils.Buttons;
 import com.practice.chatbot.configutation.BotConfig;
-import com.practice.chatbot.database.controller.SubthemeController;
-import com.practice.chatbot.database.controller.ThemeController;
 import com.practice.chatbot.database.entity.Subtheme;
-import com.practice.chatbot.database.entity.Theme;
-import com.practice.chatbot.database.service.implementation.ThemeServiceImpl;
-import com.practice.chatbot.database.utils.HibernateSessionFactoryUtil;
-import com.practice.chatbot.crud.AnswerCRUD;
-import com.practice.chatbot.crud.QuestionCRUD;
-import com.practice.chatbot.crud.SubthemeCRUD;
+import com.practice.chatbot.crud.read.AnswerRead;
+import com.practice.chatbot.crud.read.QuestionRead;
+import com.practice.chatbot.crud.read.SubthemeRead;
 import com.practice.chatbot.utils.*;
-import com.practice.chatbot.crud.ThemeCRUD;
+import com.practice.chatbot.crud.read.ThemeRead;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -346,7 +341,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String themes = ThemeCRUD.themeRead();
+        String themes = ThemeRead.themeRead();
 
         message.setText("``` " + themes + "```");
         message.setParseMode(ParseMode.MARKDOWNV2);
@@ -362,7 +357,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String subthemes = SubthemeCRUD.subthemeRead();
+        String subthemes = SubthemeRead.subthemeRead();
 
         message.setText("``` " + subthemes + "```");
         message.setParseMode(ParseMode.MARKDOWNV2);
@@ -378,7 +373,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String answer = AnswerCRUD.answerRead();
+        String answer = AnswerRead.answerRead();
 
         message.setText("``` " + answer + "```");
         message.setParseMode(ParseMode.MARKDOWNV2);
@@ -394,7 +389,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String question = QuestionCRUD.questionRead();
+        String question = QuestionRead.questionRead();
 
         message.setText("``` " + question + "```");
         message.setParseMode(ParseMode.MARKDOWNV2);

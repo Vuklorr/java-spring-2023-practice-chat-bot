@@ -1,16 +1,16 @@
-package com.practice.chatbot.crud;
+package com.practice.chatbot.crud.read;
 
 import com.practice.chatbot.database.controller.ThemeController;
-import com.practice.chatbot.database.entity.Subtheme;
 import com.practice.chatbot.database.entity.Theme;
 
 import java.util.List;
 
-public class ThemeCRUD {
+public class ThemeRead {
     private final static ThemeController themeController = new ThemeController();
     public static String themeRead() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("| ID |  ТЕМЫ  |\n").append(" |--------------|\n");
+        stringBuilder.append("Таблица Темы.\n\n");
+        stringBuilder.append(" | ID |  ТЕМЫ  |\n").append(" |--------------|\n");
 
         List<Theme> themeList = themeController.findAllThemes();
 

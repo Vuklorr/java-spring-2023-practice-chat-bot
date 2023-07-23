@@ -1,15 +1,16 @@
-package com.practice.chatbot.crud;
+package com.practice.chatbot.crud.read;
 
 import com.practice.chatbot.database.controller.QuestionController;
 import com.practice.chatbot.database.entity.Question;
 
 import java.util.List;
 
-public class QuestionCRUD {
+public class QuestionRead {
     private static final QuestionController questionController = new QuestionController();
     public static String questionRead() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("| ID |  ID ТЕМЫ  | ВОПРОСЫ |  ID ОТВЕТА  |\n |---------------------|\n");
+        stringBuilder.append("Таблицы Вопросы.\n\n");
+        stringBuilder.append(" | ID |ID ТЕМЫ|  ВОПРОСЫ  |ID ОТВЕТА|\n |------------------------------------|\n");
 
         List<Question> questionList = questionController.findAllQuestion();
 
