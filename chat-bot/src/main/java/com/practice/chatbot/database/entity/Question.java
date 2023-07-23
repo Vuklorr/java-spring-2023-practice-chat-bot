@@ -28,4 +28,10 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "answerid",referencedColumnName = "id",insertable=false, updatable=false)
     private Answer answer;
+
+    public Question(int subthemeID, String question, int answerID) {
+        this.subthemeID = subthemeID;
+        this.question = question;
+        this.answerID = answerID;
+    }
 }

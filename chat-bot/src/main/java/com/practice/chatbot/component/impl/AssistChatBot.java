@@ -118,9 +118,12 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
 
             case "/create_themes" -> dataTheme(chatId);
             case "/ct" -> createTheme(chatId, receiveMessage);
-            case "/create_subthemes" -> createSubTheme(chatId);
-            case "/create_answers" -> createAnswer(chatId);
-            case "/create_questions" -> createQuestion(chatId);
+            case "/create_subthemes" -> dataSubTheme(chatId);
+            case "/cs" -> createSubTheme(chatId, receiveMessage);
+            case "/create_answers" -> dataAnswer(chatId);
+            case "/ca" -> createAnswer(chatId, receiveMessage);
+            case "/create_questions" -> dataQuestion(chatId);
+            case "/cq" -> createQuestion(chatId, receiveMessage);
 
             case "/read_themes" -> readTheme(chatId);
             case "/read_subthemes" -> readSubTheme(chatId);
@@ -350,7 +353,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        message.setText("Введите новую запись без ID в формате: /ct [Новая запись]");
+        message.setText("Введите новую запись без ID в формате: /ct [Тема]");
         try {
             execute(message);
             log.info("Reply sent");
@@ -373,14 +376,12 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void createSubTheme(Long chatId) {
+    private void dataSubTheme(Long chatId) {
+        readSubTheme(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String subthemes = SubthemeCRUD.subthemeRead();
-
-        message.setText("``` " + subthemes + "```");
-        message.setParseMode(ParseMode.MARKDOWNV2);
+        message.setText("Введите новую запись без ID в формате: /cs [Подтема ID_темы]");
         try {
             execute(message);
             log.info("Reply sent");
@@ -389,14 +390,12 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void createAnswer(Long chatId) {
+    private void createSubTheme(Long chatId, String uMessage) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
+        String controllerMessage = SubthemeCRUD.subthemeCreate(uMessage);
 
-        String answer = AnswerCRUD.answerRead();
-
-        message.setText("``` " + answer + "```");
-        message.setParseMode(ParseMode.MARKDOWNV2);
+        message.setText(controllerMessage);
         try {
             execute(message);
             log.info("Reply sent");
@@ -405,14 +404,54 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void createQuestion(Long chatId) {
+    private void dataAnswer(Long chatId) {
+        readAnswer(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
 
-        String question = QuestionCRUD.questionRead();
+        message.setText("Введите новую запись без ID в формате: /ca [Ответ]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
 
-        message.setText("``` " + question + "```");
-        message.setParseMode(ParseMode.MARKDOWNV2);
+    private void createAnswer(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = AnswerCRUD.answerCreate(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataQuestion(Long chatId) {
+        readQuestion(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите новую запись без ID в формате: /cq [ID_подтемы Вопрос ID_ответа]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void createQuestion(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = QuestionCRUD.questionCreate(uMessage);
+
+        message.setText(controllerMessage);
         try {
             execute(message);
             log.info("Reply sent");

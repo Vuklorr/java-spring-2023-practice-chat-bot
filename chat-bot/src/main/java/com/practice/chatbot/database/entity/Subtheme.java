@@ -25,4 +25,9 @@ public class Subtheme {
     private Theme theme;
     @OneToMany(mappedBy = "subtheme", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questions;
+
+    public Subtheme(String content, int themeId) {
+        this.content = content;
+        theme_id = themeId;
+    }
 }

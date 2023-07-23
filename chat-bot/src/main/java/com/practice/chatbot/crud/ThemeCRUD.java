@@ -11,10 +11,9 @@ public class ThemeCRUD {
     public static String themeCreate(String uMessage) {
         try {
             String themeContent = uMessage.substring(4);
-            System.out.println(themeContent);
             themeController.saveTheme(new Theme(themeContent));
         } catch (StringIndexOutOfBoundsException e) {
-            return "Вы ввели пустую строку!";
+            return "Неверно введены данные!";
         }
 
         return "Данные успешно сохранены";
