@@ -1,11 +1,11 @@
-package com.practice.chatbot.crud.read;
+package com.practice.chatbot.crud;
 
 import com.practice.chatbot.database.controller.QuestionController;
 import com.practice.chatbot.database.entity.Question;
 
 import java.util.List;
 
-public class QuestionRead {
+public class QuestionCRUD {
     private static final QuestionController questionController = new QuestionController();
     public static String questionRead() {
         StringBuilder stringBuilder = new StringBuilder();

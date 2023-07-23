@@ -27,6 +27,15 @@ public class Buttons {
         return getInlineKeyboardMarkup(CREATE_BUTTON, READ_BUTTON, UPDATE_BUTTON, DELETE_BUTTON);
     }
 
+    public static InlineKeyboardMarkup inlineKeyboardMarkupCreateTable() {
+        THEME_TABLE_BUTTON.setCallbackData("/create_themes");
+        SUB_THEME_TABLE_BUTTON.setCallbackData("/create_subthemes");
+        ANSWER_TABLE_BUTTON.setCallbackData("/create_answers");
+        QUESTION_TABLE_BUTTON.setCallbackData("/create_questions");
+
+        return getInlineKeyboardMarkup(THEME_TABLE_BUTTON, SUB_THEME_TABLE_BUTTON, ANSWER_TABLE_BUTTON, QUESTION_TABLE_BUTTON);
+    }
+
     public static InlineKeyboardMarkup inlineKeyboardMarkupReadTable() {
         THEME_TABLE_BUTTON.setCallbackData("/read_themes");
         SUB_THEME_TABLE_BUTTON.setCallbackData("/read_subthemes");

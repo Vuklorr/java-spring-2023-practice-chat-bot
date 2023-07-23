@@ -23,4 +23,8 @@ public class Theme {
         this.id = theme.getId();
         this.content  = theme.getContent();
     }
+
+    public Theme(String content) {
+        this.content  = content;
+    }
 }

@@ -1,11 +1,11 @@
-package com.practice.chatbot.crud.read;
+package com.practice.chatbot.crud;
 
 import com.practice.chatbot.database.controller.SubthemeController;
 import com.practice.chatbot.database.entity.Subtheme;
 
 import java.util.List;
 
-public class SubthemeRead {
+public class SubthemeCRUD {
     private static final SubthemeController subthemController = new SubthemeController();
     public static String subthemeRead() {
         StringBuilder stringBuilder = new StringBuilder();
