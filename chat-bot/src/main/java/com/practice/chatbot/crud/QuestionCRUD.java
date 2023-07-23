@@ -1,11 +1,12 @@
 package com.practice.chatbot.crud;
 
-import com.practice.chatbot.crud.util.SearchIdAndIndex;
+import com.practice.chatbot.crud.utils.SearchIdAndIndex;
 import com.practice.chatbot.database.controller.QuestionController;
 import com.practice.chatbot.database.entity.Question;
 import com.practice.chatbot.database.entity.Subtheme;
 import org.hibernate.JDBCException;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class QuestionCRUD {
@@ -40,5 +41,27 @@ public class QuestionCRUD {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static String questionUpdate(String uMessage) {
+        try {
+            String subthemeContent = uMessage.substring(4);
+
+            int[] idAndIndexQuestion = SearchIdAndIndex.searchIdAndIndex(subthemeContent, 0);
+            String data = subthemeContent.substring(idAndIndexQuestion[1] + 1);
+
+            int[] idAndIndexSubheme = SearchIdAndIndex.searchIdAndIndex(data, 0);
+            int[] idAndIndexAnswer = SearchIdAndIndex.searchIdAndIndex(data, data.length() - 1);
+
+            questionController.updateQuestion(new Question(idAndIndexQuestion[0]
+                    , idAndIndexSubheme[0]
+                    , data.substring(idAndIndexSubheme[1] + 1, idAndIndexAnswer[1])
+                    , idAndIndexAnswer[0]));
+
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно обновлены";
     }
 }

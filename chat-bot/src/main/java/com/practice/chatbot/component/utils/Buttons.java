@@ -45,6 +45,15 @@ public class Buttons {
         return getInlineKeyboardMarkup(THEME_TABLE_BUTTON, SUB_THEME_TABLE_BUTTON, ANSWER_TABLE_BUTTON, QUESTION_TABLE_BUTTON);
     }
 
+    public static InlineKeyboardMarkup inlineKeyboardMarkupUpdateTable() {
+        THEME_TABLE_BUTTON.setCallbackData("/update_themes");
+        SUB_THEME_TABLE_BUTTON.setCallbackData("/update_subthemes");
+        ANSWER_TABLE_BUTTON.setCallbackData("/update_answers");
+        QUESTION_TABLE_BUTTON.setCallbackData("/update_questions");
+
+        return getInlineKeyboardMarkup(THEME_TABLE_BUTTON, SUB_THEME_TABLE_BUTTON, ANSWER_TABLE_BUTTON, QUESTION_TABLE_BUTTON);
+    }
+
     private static InlineKeyboardMarkup getInlineKeyboardMarkup(InlineKeyboardButton subThemeTableButton, InlineKeyboardButton themeTableButton, InlineKeyboardButton answerTableButton, InlineKeyboardButton questionTableButton) {
         List<InlineKeyboardButton> firstRowInline = List.of(subThemeTableButton, themeTableButton);
         List<InlineKeyboardButton> secondRowInline = List.of(answerTableButton, questionTableButton);

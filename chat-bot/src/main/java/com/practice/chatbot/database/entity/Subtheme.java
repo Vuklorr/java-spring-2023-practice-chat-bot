@@ -30,4 +30,10 @@ public class Subtheme {
         this.content = content;
         theme_id = themeId;
     }
+
+    public Subtheme(int id, String content, int theme_id) {
+        this.id = id;
+        this.content = content;
+        this.theme_id = theme_id;
+    }
 }

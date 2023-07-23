@@ -116,13 +116,13 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/update" -> update(chatId);
             case "/delete" -> delete(chatId);
 
-            case "/create_themes" -> dataTheme(chatId);
+            case "/create_themes" -> dataCreateTheme(chatId);
             case "/ct" -> createTheme(chatId, receiveMessage);
-            case "/create_subthemes" -> dataSubTheme(chatId);
+            case "/create_subthemes" -> dataCreateSubTheme(chatId);
             case "/cs" -> createSubTheme(chatId, receiveMessage);
-            case "/create_answers" -> dataAnswer(chatId);
+            case "/create_answers" -> dataCreateAnswer(chatId);
             case "/ca" -> createAnswer(chatId, receiveMessage);
-            case "/create_questions" -> dataQuestion(chatId);
+            case "/create_questions" -> dataCreateQuestion(chatId);
             case "/cq" -> createQuestion(chatId, receiveMessage);
 
             case "/read_themes" -> readTheme(chatId);
@@ -130,7 +130,16 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/read_answers" -> readAnswer(chatId);
             case "/read_questions" -> readQuestion(chatId);
 
-            }
+            case "/update_themes" -> dataUpdateTheme(chatId);
+            case "/ut" -> updateTheme(chatId, receiveMessage);
+            case "/update_subthemes" -> dataUpdateSubTheme(chatId);
+            case "/us" -> updateSubTheme(chatId, receiveMessage);
+            case "/update_answers" -> dataUpdateAnswer(chatId);
+            case "/ua" -> updateAnswer(chatId, receiveMessage);
+            case "/update_questions" -> dataUpdateQuestion(chatId);
+            case "/uq" -> updateQuestion(chatId, receiveMessage);
+
+        }
     }
 
     private void startBot(long chatId, String userName) {
@@ -327,7 +336,8 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
     private void update(Long chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("3В разработке!");
+        message.setText("Выберите таблицу, в которой хотите обновить запись:");
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupUpdateTable());
         try {
             execute(message);
             log.info("Reply sent");
@@ -348,7 +358,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void dataTheme(Long chatId) {
+    private void dataCreateTheme(Long chatId) {
         readTheme(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -376,7 +386,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void dataSubTheme(Long chatId) {
+    private void dataCreateSubTheme(Long chatId) {
         readSubTheme(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -404,7 +414,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void dataAnswer(Long chatId) {
+    private void dataCreateAnswer(Long chatId) {
         readAnswer(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -432,7 +442,7 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         }
     }
 
-    private void dataQuestion(Long chatId) {
+    private void dataCreateQuestion(Long chatId) {
         readQuestion(chatId);
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
@@ -523,5 +533,113 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             log.error(e.getMessage());
         }
     }
+    private void dataUpdateTheme(Long chatId) {
+        readTheme(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
 
+        message.setText("Введите измененную запись c ID в формате: /ut [ID_старой_темы Новая_тема]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void updateTheme(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = ThemeCRUD.themeUpdate(uMessage);
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataUpdateSubTheme(Long chatId) {
+        readSubTheme(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите измененную запись c ID в формате: /us [ID_старой_подтемы Новая_подтема ID_темы]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void updateSubTheme(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = SubthemeCRUD.subthemeUpdate(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataUpdateAnswer(Long chatId) {
+        readAnswer(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите измененную запись c ID в формате: /ua [ID_старого_ответа Новый_ответ]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void updateAnswer(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = AnswerCRUD.answerUpdate(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataUpdateQuestion(Long chatId) {
+        readQuestion(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Введите измененную запись c ID в формате: /uq [ID_старого_вопроса ID_подтемы Новый_вопрос ID_ответа]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void updateQuestion(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = QuestionCRUD.questionUpdate(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
 }

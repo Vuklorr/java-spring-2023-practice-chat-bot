@@ -1,4 +1,4 @@
-package com.practice.chatbot.crud.util;
+package com.practice.chatbot.crud.utils;
 
 public class SearchIdAndIndex {
     public static int[] searchIdAndIndex(String content, int start) {

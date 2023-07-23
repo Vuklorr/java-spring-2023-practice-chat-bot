@@ -1,14 +1,13 @@
 package com.practice.chatbot.crud;
 
-import com.practice.chatbot.crud.util.SearchIdAndIndex;
+import com.practice.chatbot.crud.utils.SearchIdAndIndex;
 import com.practice.chatbot.database.controller.SubthemeController;
 import com.practice.chatbot.database.entity.Subtheme;
 import com.practice.chatbot.database.entity.Theme;
 import org.hibernate.JDBCException;
 
-import javax.validation.ConstraintViolationException;
+import javax.persistence.PersistenceException;
 import java.util.List;
-import java.util.Scanner;
 
 public class SubthemeCRUD {
     private static final SubthemeController subthemeController = new SubthemeController();
@@ -40,5 +39,23 @@ public class SubthemeCRUD {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static String subthemeUpdate(String uMessage) {
+        try {
+            String subthemeContent = uMessage.substring(4);
+
+            int[] idAndIndexSubtheme = SearchIdAndIndex.searchIdAndIndex(subthemeContent, 0);
+            int[] idAndIndexTheme = SearchIdAndIndex.searchIdAndIndex(subthemeContent, subthemeContent.length() - 1);
+
+            subthemeController.updateTheme(new Subtheme(idAndIndexSubtheme[0]
+                    , subthemeContent.substring(idAndIndexSubtheme[1], idAndIndexTheme[1])
+                    , idAndIndexTheme[0]));
+
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно обновлены";
     }
 }

@@ -1,8 +1,10 @@
 package com.practice.chatbot.crud;
 
+import com.practice.chatbot.crud.utils.SearchIdAndIndex;
 import com.practice.chatbot.database.controller.ThemeController;
 import com.practice.chatbot.database.entity.Theme;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class ThemeCRUD {
@@ -35,4 +37,16 @@ public class ThemeCRUD {
         return stringBuilder.toString();
     }
 
+    public static String themeUpdate(String uMessage) {
+        try {
+            String themeContent = uMessage.substring(4);
+
+            int[] idAndIndexTheme = SearchIdAndIndex.searchIdAndIndex(themeContent, 0);
+            themeController.updateTheme(new Theme(idAndIndexTheme[0], themeContent.substring(idAndIndexTheme[1] + 1)));
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно обновлены";
+    }
 }

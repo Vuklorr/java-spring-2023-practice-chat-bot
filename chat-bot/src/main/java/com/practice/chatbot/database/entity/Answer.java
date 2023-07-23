@@ -24,4 +24,9 @@ public class Answer {
     public Answer (String content) {
         this.content = content;
     }
+
+    public Answer(int id, String content) {
+        this.id = id;
+        this.content = content;
+    }
 }

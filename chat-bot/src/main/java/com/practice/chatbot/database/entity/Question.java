@@ -34,4 +34,11 @@ public class Question {
         this.question = question;
         this.answerID = answerID;
     }
+
+    public Question(int id, int subthemeID, String question, int answerID) {
+        this.id = id;
+        this.subthemeID = subthemeID;
+        this.question = question;
+        this.answerID = answerID;
+    }
 }

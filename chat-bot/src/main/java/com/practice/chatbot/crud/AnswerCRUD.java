@@ -1,9 +1,12 @@
 package com.practice.chatbot.crud;
 
+import com.practice.chatbot.crud.utils.SearchIdAndIndex;
 import com.practice.chatbot.database.controller.AnswerController;
 import com.practice.chatbot.database.entity.Answer;
+import com.practice.chatbot.database.entity.Subtheme;
 import com.practice.chatbot.database.entity.Theme;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class AnswerCRUD {
@@ -33,5 +36,19 @@ public class AnswerCRUD {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static String answerUpdate(String uMessage) {
+        try {
+            String answerContent = uMessage.substring(4);
+            int[] idAndIndexAnswer = SearchIdAndIndex.searchIdAndIndex(answerContent, 0);
+
+            answerController.updateAnswer(new Answer(idAndIndexAnswer[0], answerContent.substring(idAndIndexAnswer[1] + 1)));
+
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно обновлены";
     }
 }
