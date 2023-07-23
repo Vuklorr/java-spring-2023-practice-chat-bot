@@ -139,6 +139,15 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
             case "/update_questions" -> dataUpdateQuestion(chatId);
             case "/uq" -> updateQuestion(chatId, receiveMessage);
 
+            case "/delete_themes" -> dataDeleteTheme(chatId);
+            case "/dt" -> deleteTheme(chatId, receiveMessage);
+            case "/delete_subthemes" -> dataDeleteSubTheme(chatId);
+            case "/ds" -> deleteSubTheme(chatId, receiveMessage);
+            case "/delete_answers" -> dataDeleteAnswer(chatId);
+            case "/da" -> deleteAnswer(chatId, receiveMessage);
+            case "/delete_questions" -> dataDeleteQuestion(chatId);
+            case "/dq" -> deleteQuestion(chatId, receiveMessage);
+
         }
     }
 
@@ -349,7 +358,8 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
     private void delete(Long chatId) {
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
-        message.setText("4В разработке!");
+        message.setText("Выберите таблицу, в которой хотите удалить запись:");
+        message.setReplyMarkup(Buttons.inlineKeyboardMarkupDeleteTable());
         try {
             execute(message);
             log.info("Reply sent");
@@ -633,6 +643,116 @@ public class AssistChatBot extends TelegramLongPollingBot implements AssistBotCo
         SendMessage message = new SendMessage();
         message.setChatId(chatId);
         String controllerMessage = QuestionCRUD.questionUpdate(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataDeleteTheme(Long chatId) {
+        readTheme(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите ID записи, которую хотите удалить в формате: /dt [ID_темы]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void deleteTheme(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = ThemeCRUD.themeDelete(uMessage);
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataDeleteSubTheme(Long chatId) {
+        readSubTheme(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите ID записи, которую хотите удалить в формате: /ds [ID_подтемы]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void deleteSubTheme(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = SubthemeCRUD.subthemeDelete(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataDeleteAnswer(Long chatId) {
+        readAnswer(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+
+        message.setText("Введите ID записи, которую хотите удалить в формате: /da [ID_ответа]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void deleteAnswer(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = AnswerCRUD.answerDelete(uMessage);
+
+        message.setText(controllerMessage);
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void dataDeleteQuestion(Long chatId) {
+        readQuestion(chatId);
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        message.setText("Введите ID записи, которую хотите удалить в формате: /dq [ID_вопроса]");
+        try {
+            execute(message);
+            log.info("Reply sent");
+        } catch (TelegramApiException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void deleteQuestion(Long chatId, String uMessage) {
+        SendMessage message = new SendMessage();
+        message.setChatId(chatId);
+        String controllerMessage = QuestionCRUD.questionDelete(uMessage);
 
         message.setText(controllerMessage);
         try {

@@ -51,4 +51,16 @@ public class AnswerCRUD {
 
         return "Данные успешно обновлены";
     }
+
+    public static String answerDelete(String uMessage) {
+        try {
+            String answerContent = uMessage.substring(4);
+            Answer answer = answerController.findAnswer(Integer.parseInt(answerContent));
+            answerController.deleteAnswer(answer);
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно удалены";
+    }
 }

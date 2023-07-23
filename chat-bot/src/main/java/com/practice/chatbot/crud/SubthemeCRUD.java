@@ -58,4 +58,17 @@ public class SubthemeCRUD {
 
         return "Данные успешно обновлены";
     }
+
+    public static String subthemeDelete(String uMessage) {
+        try {
+            String subthemeContent = uMessage.substring(4);
+            Subtheme subtheme = subthemeController.findSubtheme(Integer.parseInt(subthemeContent));
+
+            subthemeController.deleteSubtheme(subtheme);
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно удалены";
+    }
 }

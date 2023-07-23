@@ -49,4 +49,17 @@ public class ThemeCRUD {
 
         return "Данные успешно обновлены";
     }
+
+    public static String themeDelete(String uMessage) {
+        try {
+            String themeContent = uMessage.substring(4);
+            Theme theme = themeController.findTheme(Integer.parseInt(themeContent));
+
+            themeController.deleteTheme(theme);
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно удалены";
+    }
 }

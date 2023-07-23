@@ -4,6 +4,7 @@ import com.practice.chatbot.crud.utils.SearchIdAndIndex;
 import com.practice.chatbot.database.controller.QuestionController;
 import com.practice.chatbot.database.entity.Question;
 import com.practice.chatbot.database.entity.Subtheme;
+import com.practice.chatbot.database.entity.Theme;
 import org.hibernate.JDBCException;
 
 import javax.persistence.PersistenceException;
@@ -63,5 +64,18 @@ public class QuestionCRUD {
         }
 
         return "Данные успешно обновлены";
+    }
+
+    public static String questionDelete(String uMessage) {
+        try {
+            String questionContent = uMessage.substring(4);
+            Question question = questionController.findQuestion(Integer.parseInt(questionContent));
+
+            questionController.deleteQuestion(question);
+        } catch (StringIndexOutOfBoundsException | PersistenceException e) {
+            return "Неверно введены данные!";
+        }
+
+        return "Данные успешно удалены";
     }
 }
